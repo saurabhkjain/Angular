@@ -1,0 +1,43 @@
+<div *ngIf="person">
+        <h1>Update {{person.Fullname}}</h1>
+        <h2>User Details</h2>
+        <hr>
+        <form [formGroup]="personForm" (ngSubmit)="save()" novalidate>
+
+                <div class="form-group">
+                        <label >Authorised
+                        <!-- checkbox input -->
+                           <input type="checkbox" formControlName="Authorised" [checked]="person.IsAuthorised">
+                        </label>
+                </div>
+                <div class="form-group">
+                        <label for="Enabled"> Enabled
+                                <input type="checkbox" formControlName="Enabled" [checked]="person.IsEnabled">
+                        </label>
+                </div>
+  
+                        <h2>Favourite Colours</h2>
+                        <hr>
+                        <label for="Green">Blue</label>
+                        <!-- checkbox input -->
+                        <input type="checkbox" [checked]='person.ColourNames.includes("Blue")'>
+                                
+                                
+                        <label for="Green">Green</label>
+                        <!-- checkbox input -->
+                        <input type="checkbox" [checked]='person.ColourNames.includes("Green")'>
+                        <label for="Red">Red</label>
+                        <!-- checkbox input -->
+                        <input type="checkbox" [checked]='person.ColourNames.includes("Red")'>
+                                
+                        <button type="submit" id="save" (click)="save()">Save Changes</button> 
+                        <button (click)="cancel()">Cancel</button>
+        </form>
+        
+                                
+        
+
+        <p>Form value: {{ heroForm.value | json }}</p>
+</div>
+
+
