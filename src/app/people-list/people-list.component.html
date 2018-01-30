@@ -1,0 +1,19 @@
+<h2>People</h2>
+<table class="table table-striped table-hover table-condensed">
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <th>Authorised</th>
+    <th>Enabled</th>
+    <th>Colours</th>
+  </tr>
+  <tr *ngFor="let name of users">
+    <td> <a routerLink="/api/people/{{ name.PersonId }}">{{ name.Fullname}} </a> </td>
+    <td [ngStyle]="{'color':name.IsAuthorised ? 'green' : 'red' }">{{ name.IsAuthorised ? "Yes":"No" }}</td>
+    <td [ngStyle]="{'color':name.IsEnabled ? 'green' : 'red' }">{{ name.IsEnabled ? "Yes":"No" }}</td>
+    <td>{{ name.ColourNames }}</td>
+  </tr>
+</tbody>
+</table>
+
+<app-people-search></app-people-search>

@@ -13,10 +13,13 @@ import { FormArray, FormBuilder, FormGroup,FormControl } from '@angular/forms';
 
 export class PersonDetailComponent implements OnInit {
   @Input() person: Person;
+  errorMessage: string;
 
   // personForm: FormGroup;
   personForm = new FormGroup ({
-    name: new FormControl()
+    name: new FormControl(),
+    Authorised: new FormControl(),
+    Enabled: new FormControl()
   });
 
   constructor(
@@ -30,12 +33,12 @@ export class PersonDetailComponent implements OnInit {
 
   createForm() {
     this.personForm = this.fb.group({
-      Authorised: '',
-      Enabled: ''
+      IsAuthorised: '',
+      IsEnabled: ''
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getPerson();
   }
   
@@ -50,12 +53,18 @@ export class PersonDetailComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
-    const formModel = this.personForm.value;
+  onSubmit(person: Person): void {
+      console.log(this.personForm.value);
 
-    // const id = +this.route.snapshot.paramMap.get('id');
-    // console.log("Person to be updated is "+ this.person.IsEnabled);
-    // this.personService.updatePerson(this.person,id).subscribe(() => this.cancel());
+      console.log("Old authorised : "+ this.person.IsAuthorised);
+      console.log("Old enabled : "+ this.person.IsEnabled);
+      //Merge the form's model with the one from the database. 
+    let updatedPerson = Object.assign({}, this.person, this.personForm.value);
+    console.log("New authorised : "+ updatedPerson.IsAuthorised);
+    console.log("New enabled : "+ updatedPerson.IsEnabled);
+
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.personService.updatePerson(updatedPerson,id) .subscribe(() => this.cancel());
   }
 
 }

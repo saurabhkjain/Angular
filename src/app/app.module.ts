@@ -7,19 +7,23 @@ import { AppRoutingModule } from './/app-routing.module';
 import { PersonService } from './person.service';
 import { HttpClientModule }    from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PeopleListComponent } from './people-list/people-list.component';
+import { PeopleSearchComponent } from './people-search/people-search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PersonDetailComponent
+    PersonDetailComponent,
+    PeopleListComponent,
+    PeopleSearchComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule                                                                                                                                                                        
   ],
   providers: [PersonService],
   bootstrap: [AppComponent]

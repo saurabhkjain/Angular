@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators'; // Error Handling
-import { Http, Response, Headers } from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Person } from './person';
 import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class PersonService {
   private getPersonUrl = 'http://colours-test.answerappcloud.com/api/people'; //"http://localhost:8080/person/get"
-  private peopleUrl = 'http://localhost:8080/all';
+  private peopleUrl = 'http://colours-test.answerappcloud.com/api/people';
   constructor(private http: HttpClient) { }
 
   getPeople(): Observable<Person[]> {
@@ -58,17 +58,29 @@ private handleError<T> (operation = 'operation', result?: T) {
   };
 }
 
-updatePerson(person:Person,id:number): Observable<any> {
+updatePerson(person:Person,id:number): Observable<Person> {
+  const body = JSON.stringify(person);
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   const url = `${this.getPersonUrl}/${id}`;
 
-  return this.http.put(url, person,httpOptions).pipe(
+  return this.http.put(url, body,httpOptions).pipe(
     tap(_ => this.log(`updated hero id=${person.PersonId}`)),
     catchError(this.handleError<any>('updateHero'))
   );
 }
  
+/* GET heroes whose name contains search term */
+searchHeroes(term: string): Observable<Person[]> {
+  if (!term.trim()) {
+    // if not search term, return empty hero array.
+    return of([]);
+  }
+  return this.http.get<Person[]>(`${this.getPersonUrl}/?name=${term}`).pipe(
+    tap(_ => this.log(`found people matching "${term}"`)),
+    catchError(this.handleError<Person[]>('searchPeople', []))
+  );
+}
 
 }
