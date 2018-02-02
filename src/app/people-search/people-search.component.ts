@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { Subject }    from 'rxjs/Subject';
-import { of }         from 'rxjs/observable/of';
+import { Subject } from 'rxjs/Subject';
+import { of } from 'rxjs/observable/of';
 
 import {
   debounceTime, distinctUntilChanged, switchMap
@@ -37,7 +37,7 @@ export class PeopleSearchComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.personService.searchHeroes(term)),
+      switchMap((term: string) => this.personService.searchHeroes(term))
     );
   }
 
