@@ -14,6 +14,7 @@ import { FormArray, FormBuilder, FormGroup,FormControl } from '@angular/forms';
 export class PersonDetailComponent implements OnInit {
   @Input() person: Person;
   errorMessage: string;
+  showSpinner: boolean = false;
 
   // personForm: FormGroup;
   personForm = new FormGroup ({
@@ -39,7 +40,13 @@ export class PersonDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPerson();
+    this.showSpinner = true;
+
+    setTimeout( () => {
+      this.getPerson();
+      this.showSpinner = false;
+    }, 2000)
+    
   }
   
   getPerson(): void {

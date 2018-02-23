@@ -1,48 +1,51 @@
-<div *ngIf="person">
-        <h1>Update {{person.Fullname}}</h1>
-        <h2>User Details</h2>
-        <hr>
-        <form [formGroup]="personForm" (ngSubmit)="onSubmit(personForm.value)" novalidate>
+<mat-spinner [style.display]="showSpinner? 'block': 'none'" id="spinner">
 
-                <div class="form-group">
-                        <label >Authorised
-                        <!-- checkbox input -->
-                           <input type="checkbox" class="form-control"  formControlName="IsAuthorised" [checked]="person.IsAuthorised">
-                        </label>
-                </div>
-                <div class="form-group">
-                        <label for="Enabled"> Enabled
-                                <input type="checkbox" class="form-control" formControlName="IsEnabled" [checked]="person.IsEnabled">
-                        </label>
-                </div>
-  
+</mat-spinner>
+
+<mat-card *ngIf="person">
+        <mat-card-content>
+                <h1>Update {{person.Fullname}}</h1>
+                <h2>User Details</h2>
+                <hr>
+                <form [formGroup]="personForm" (ngSubmit)="onSubmit(personForm.value)" novalidate>
+
+                        <div class="form-group">
+                                <label>Authorised
+                                        <!-- checkbox input -->
+                                        <input type="checkbox" class="form-control" formControlName="IsAuthorised" [checked]="person.IsAuthorised">
+                                </label>
+                        </div>
+                        <div class="form-group">
+                                <label for="Enabled"> Enabled
+                                        <input type="checkbox" class="form-control" formControlName="IsEnabled" [checked]="person.IsEnabled">
+                                </label>
+                        </div>
+
                         <h2>Favourite Colours</h2>
                         <hr>
                         <div class="form-group">
-                        <label for="Green">Blue</label>
-                        <!-- checkbox input -->
-                        <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Blue")'>
-                </div>     
-                <div class="form-group">        
-                        <label for="Green">Green</label>
-                        <!-- checkbox input -->
-                        <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Green")'>
+                                <label for="Green">Blue</label>
+                                <!-- checkbox input -->
+                                <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Blue")'>
                         </div>
                         <div class="form-group">
-                        <label for="Red">Red</label>
-                        <!-- checkbox input -->
-                        <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Red")'>
+                                <label for="Green">Green</label>
+                                <!-- checkbox input -->
+                                <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Green")'>
                         </div>
-                        <div class="form-group">       
-                        <button type="submit" class="btn btn-primary">Save Changes</button> 
-                        <button (click)="cancel()">Cancel</button>
+                        <div class="form-group">
+                                <label for="Red">Red</label>
+                                <!-- checkbox input -->
+                                <input type="checkbox" class="form-control" [checked]='person.ColourNames.includes("Red")'>
                         </div>
-        </form>
-        
-                                
-        
-
-        
-</div>
+                        <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button (click)="cancel()">Cancel</button>
+                        </div>
+                </form>
 
 
+
+
+        </mat-card-content>
+</mat-card>
