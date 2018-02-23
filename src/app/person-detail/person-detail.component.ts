@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { PersonService } from '../person.service';
 import { Person } from '../person';
 import { FormArray, FormBuilder, FormGroup,FormControl } from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-person-detail',
@@ -15,6 +16,7 @@ export class PersonDetailComponent implements OnInit {
   @Input() person: Person;
   errorMessage: string;
   showSpinner: boolean = false;
+  message: string = "Updared user's detials";
 
   // personForm: FormGroup;
   personForm = new FormGroup ({
@@ -27,10 +29,13 @@ export class PersonDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private personService: PersonService,
     private location: Location,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public snackBar: MatSnackBar
   ) {
     this.createForm();
   }
+
+
 
   createForm() {
     this.personForm = this.fb.group({
@@ -57,6 +62,7 @@ export class PersonDetailComponent implements OnInit {
   }
 
   cancel(): void {
+    
     this.location.back();
   }
 
@@ -71,7 +77,7 @@ export class PersonDetailComponent implements OnInit {
     console.log("New enabled : "+ updatedPerson.IsEnabled);
 
     const id = +this.route.snapshot.paramMap.get('id');
-    this.personService.updatePerson(updatedPerson,id) .subscribe(() => this.cancel());
+    this.personService.updatePerson(updatedPerson,id) .subscribe(() => this.snackBar.open(this.message,"close",{duration: 3000}), null, ()=> this.cancel());
   }
 
 }
